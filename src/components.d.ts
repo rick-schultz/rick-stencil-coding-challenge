@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface ExampleComponent {
-        "exampleProp": string;
+        "headline": string;
     }
 }
 declare global {
@@ -23,7 +23,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface ExampleComponent {
-        "exampleProp"?: string;
+        "headline"?: string;
     }
     interface IntrinsicElements {
         "example-component": ExampleComponent;
