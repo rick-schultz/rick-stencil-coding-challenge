@@ -6,9 +6,9 @@
 
 ## Properties
 
-| Property      | Attribute      | Description | Type     | Default     |
-| ------------- | -------------- | ----------- | -------- | ----------- |
-| `exampleProp` | `example-prop` |             | `string` | `undefined` |
+| Property   | Attribute  | Description | Type     | Default     |
+| ---------- | ---------- | ----------- | -------- | ----------- |
+| `headline` | `headline` |             | `string` | `undefined` |
 
 
 ----------------------------------------------
