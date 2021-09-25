@@ -1,5 +1,5 @@
 import {
-  Component, h, Host, Prop, State,
+  Component, h, Prop, State,
 } from '@stencil/core';
 
 @Component({
@@ -24,7 +24,7 @@ export class ExampleComponent {
   // eslint-disable-next-line class-methods-use-this
   public render(): JSX.Element {
     return (
-      <Host>
+      <div>
         <div class="headline">
           <h4>CtA - Main Conversion</h4>
         </div>
@@ -43,9 +43,17 @@ export class ExampleComponent {
         </div>
         <div class={this.contactUS}>
           <p>Contact us</p>
+          <div class="contacts">
+            <p>Virtual Identity AG</p>
+            <p>Isarwinkel 1</p>
+            <p>81379 München</p>
+            <p>t +49 89 179 270 00</p>
+            <p>f +49 761 88 79 57 98</p>
+            <p>info@virtual-identity.com</p>
+          </div>
           <button onClick={() => this.menuToggleOff()}><img src="https://tinyurl.com/7rmmhpxw" alt="close button" /></button>
         </div>
-      </Host>
+      </div>
     );
   }
 }

@@ -13,7 +13,12 @@ const {
   existsSync,
 } = require('fs-extra');
 
-const { extenderArr } = (existsSync('./component-config.js') ? require('../component-config.js') : []);
+const { extenderArr } = existsSync('./component-config.js')
+  // eslint-disable-next-line operator-linebreak
+  ? // eslint-disable-next-line operator-linebreak
+// eslint-disable-next-line import/extensions
+  require('../component-config.js')
+  : [];
 
 const componentRegex = RegExp(/^([a-z0-9_]+-)+[a-z0-9_]+$/);
 
@@ -26,7 +31,9 @@ export default {
   title: '${name}',
   parameters: {
     docs: { description: { component: readme } },
-    jest: [${hasSpec ? `\n      '${name}.spec.tsx',` : ''}${hasE2E ? `\n      '${name}.e2e.ts',` : ''}
+    jest: [${hasSpec ? `\n      '${name}.spec.tsx',` : ''}${
+  hasE2E ? `\n      '${name}.e2e.ts',` : ''
+}
     ],
   },
   decorators: [jsxDecorator],
@@ -40,7 +47,10 @@ export const empty = (): string => \`
 const extendGenerator = (componentName, arr) => {
   const filesArr = arr.map((x) => x(componentName)).flat();
   filesArr.forEach((fileConfig) => {
-    writeFile(`./src/components/${componentName}/${fileConfig.fileName}`, `${fileConfig.content}`);
+    writeFile(
+      `./src/components/${componentName}/${fileConfig.fileName}`,
+      `${fileConfig.content}`,
+    );
   });
 };
 
@@ -48,7 +58,7 @@ const extendGenerator = (componentName, arr) => {
   const { name } = await prompt([
     {
       name: 'name',
-      message: 'What\'s the components name?',
+      message: "What's the components name?",
       validate: (input) => {
         if (!componentRegex.test(input)) {
           return 'Please give me a valid component name according to the web component naming rules!';
@@ -59,10 +69,7 @@ const extendGenerator = (componentName, arr) => {
   ]);
 
   await run({
-    args: [
-      'generate',
-      name,
-    ],
+    args: ['generate', name],
     logger: createNodeLogger({ process }),
     sys: createNodeSys({ process }),
   });
@@ -73,14 +80,22 @@ const extendGenerator = (componentName, arr) => {
   ]);
 
   // Generate stories file
-  await outputFile(`./src/components/${name}/${name}.stories.ts`, getStoriesContent(name, hasSpec, hasE2E));
+  await outputFile(
+    `./src/components/${name}/${name}.stories.ts`,
+    getStoriesContent(name, hasSpec, hasE2E),
+  );
 
   // Change CSS file to SCSS
   await Promise.all([
-    move(`./src/components/${name}/${name}.css`, `./src/components/${name}/${name}.scss`),
+    move(
+      `./src/components/${name}/${name}.css`,
+      `./src/components/${name}/${name}.scss`,
+    ),
     writeFile(
       `./src/components/${name}/${name}.tsx`,
-      (await readFile(`./src/components/${name}/${name}.tsx`)).toString().replace(`${name}.css`, `${name}.scss`),
+      (await readFile(`./src/components/${name}/${name}.tsx`))
+        .toString()
+        .replace(`${name}.css`, `${name}.scss`),
     ),
   ]);
 
